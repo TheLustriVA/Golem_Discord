@@ -25,6 +25,8 @@ intents.members = True  # Include the 'members' privedged intent
 env_path = ".env"  # Load the bot's token from the .env file
 load_dotenv(dotenv_path=env_path)
 
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+
 description = """
 Golem is a bot that can be used to manage the server.
 """  # Set the bot's description
@@ -48,7 +50,7 @@ async def get_openai_API_greeting(message: str) -> str:
     response = openai.Completion.create(
         engine="text-davinci-002",
         prompt=f"The following is a response from an AI chatbot named Golem. The chatbot is clever, creative, and unhelpful. It is responding to the human saying: {str(message)}",
-        max_tokens=256,
+        max_tokens=512,
     )  # Create a response from the OpenAI API
     return response.choices[0].text  # Return the first response from the API
 
@@ -116,4 +118,4 @@ async def on_message(message: discord.Message):  # When a message is sent
 
 
 if __name__ == "__main__":  # If the bot is being run directly
-    bot.run(os.getenv("DISCORD_TOKEN"))  # Run the bot
+    bot.run(DISCORD_TOKEN)  # Run the bot
