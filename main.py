@@ -55,11 +55,8 @@ async def get_openai_API_greeting(message: str) -> str:
     """
     response = openai.Completion.create(
         engine="text-davinci-002",
-<<<<<<< HEAD
+
         prompt=f"The following is a response from an AI chatbot named Golem. The chatbot is clever, creative, and helpful. It is responding to the human saying: {str(message)}",
-=======
-        prompt=f"The following is a response from an AI chatbot named Golem. The chatbot is clever, creative, and unhelpful. It is responding to the human saying: {str(message)}",
->>>>>>> main
         max_tokens=512,
     )  # Create a response from the OpenAI API
     return response.choices[0].text  # Return the first response from the API
