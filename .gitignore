@@ -130,3 +130,10 @@ dmypy.json
 
 # Util files
 .create_documentation.py
+
+# Old versions
+v1/
+format/
+cogs/encode.py
+golem.session.sql
+.vscode/
