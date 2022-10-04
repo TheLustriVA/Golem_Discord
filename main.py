@@ -15,9 +15,9 @@ import os
 import random
 import json
 import openai
-from cogs.encode import utf8, check_key, init_key
+#from cogs.encode import utf8, check_key, init_key
 #from cogs.tts import TTS
-#from cogs.explore import Astronomy
+from cogs.explore import Astronomy
 
 
 
@@ -67,10 +67,7 @@ async def get_openai_API_greeting(message: str) -> str:
 @bot.event
 async def on_ready():  # When the bot is ready
     print(f"{bot.user.name} has connected to Discord!")  # Print the bot's name and connection status
-    key = check_key()
-    # if key == False:
-    #     init_key()
-    # await bot.add_cog(Astronomy(bot))
+    await bot.add_cog(Astronomy(bot))
 
 @bot.command()
 async def ping(ctx):
@@ -80,7 +77,6 @@ async def ping(ctx):
 
 @bot.event
 async def on_message(message: discord.Message):  # When a message is sent
-    await utf8(message)
     if message.author == bot.user:  # If the message is from the bot
         return  # Return nothing
     else:
