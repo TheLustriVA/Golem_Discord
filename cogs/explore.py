@@ -1,8 +1,9 @@
-import httpx
+import os
+
 import discord
+import httpx
 from discord.ext import commands
 from dotenv import load_dotenv
-import os
 
 env_path = "../.env"  # Load the bot's token from the .env file
 load_dotenv(dotenv_path=env_path)
