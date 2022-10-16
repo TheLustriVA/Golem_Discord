@@ -137,3 +137,4 @@ format/
 cogs/encode.py
 golem.session.sql
 .vscode/
+sql/

@@ -7,8 +7,8 @@ from discord.ext import commands
 from discord.ext.commands.errors import CommandNotFound
 from dotenv import load_dotenv
 
-from cogs.Events import Events
 from cogs.explore import Astronomy
+from cogs.warning import Warnings
 
 bot_invite_url = "https://discord.com/oauth2/authorize?client_id=1029801423522779236&permissions=8&scope=bot"  # set the bot's invite url
 
@@ -27,14 +27,7 @@ Golem is an echo of the Essai who has gone on to greater duties.
 openai.api_key = os.getenv("OPENAI_API_KEY")  # Set the OpenAI API key
 
 
-bot = commands.Bot(
-    command_prefix="+", description=description, intents=intents
-)  # Create the bot
-
-#bot.add_cog(TTS(bot))
-
-
-
+bot = commands.Bot(command_prefix=">", description=description, intents=intents)  # Create the bot
 
 async def get_openai_API_greeting(message: str) -> str:
     """_Take the contents of messages starting with '>hello' in certain channels and pulls a response from GPT-3_
@@ -57,13 +50,16 @@ async def get_openai_API_greeting(message: str) -> str:
 @bot.event
 async def on_ready():  # When the bot is ready
     print(f"{bot.user.name} has connected to Discord!")  # Print the bot's name and connection status
-    await bot.add_cog(Astronomy(bot))
-    await bot.add_cog(Events(bot))
 
 
-@bot.event
-async def on_member_join(member):
-    await member.send(f'Welcome to Unstable Diffusion, {member.mention}! Enjoy your stay here!')
+cogs_list = [
+    'explore',
+    'warning'
+]
+
+for cog in cogs_list:
+    bot.load_extension(f'cogs.{cog}')
+    print("Cogs loaded.")
 
 # button code
 class MyView(discord.ui.View): # Create a class called MyView that subclasses discord.ui.View
@@ -102,14 +98,6 @@ class MyView(discord.ui.View): # Create a class called MyView that subclasses di
         embed.set_footer(text="Unstable diffusion server - User log offenses ban and timeout")
         await ctx.send(embed=embed)
 
-    @bot.command()
-    async def hey(ctx, user_id, *, message):
-        """Record a warning"""
-        print("Go!")
-        print({'user': user_id, 'message': message, 'reporter': ctx.author.id})
-        with jsonlines.open('warnings.jsonl', mode='a') as writer:
-            writer.write({'user': user_id, 'message': message, 'reporter': ctx.author.id})
-
 @bot.command()
 async def ping(ctx):
     """Ping the bot"""
@@ -118,14 +106,13 @@ async def ping(ctx):
 
 @bot.event
 async def on_message(message: discord.Message):  # When a message is sent
-
     if message.author == bot.user:  # If the message is from the bot
         return  # Return nothing
-    # else:
-    #     if "Pippa" in message.content and message.content.endswith("?") or message.content.endswith("..."):  # If the message starts with '>hello'
-    #         greeting = await get_openai_API_greeting(message.content)  # Get a greeting from the OpenAI API
-    #         await message.channel.send(greeting.replace("Pippa:\n", ""))  # Send the API greeting to the channel
-    #         print(f"{message.channel.name} - {message.author.name} - {message.content}")
+    #else:
+    #    if "Pippa" in message.content and message.content.endswith("?") or message.content.endswith("..."):  # If the message starts with '>hello'
+    #        greeting = await get_openai_API_greeting(message.content)  # Get a greeting from the OpenAI API
+    #        await message.channel.send(greeting.replace("Pippa:\n", ""))  # Send the API greeting to the channel
+    #        print(f"{message.channel.name} - {message.author.name} - {message.content}")
     await bot.process_commands(message)  # Process commands
         
     
