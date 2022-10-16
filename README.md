@@ -1,44 +1,44 @@
-# Golem Bot README
 
-## get_greeting()
+![Logo](https://i.imgur.com/ia7OLKu.jpg)
 
-Returns a greeting from content/greetings.json for all channels not serviced by GPT-3
 
-Returns:
-    _str_: _Coinflip between a funny written response and a funny glitch response._
+# Premium and Moderation Bot
 
-## get_openai_API_greeting()
+A premium txt2img bot with powerful moderation and chat capabilities.
 
-Take the contents of messages starting with '>hello' in certain channels and pulls a response from GPT-3
+---
 
-Args:
-    Message (_str_): _A string of the message contents to which the bot should respond_
+![SD-Intel Banner](https://i.imgur.com/pLwvzQh.jpg)
 
-Returns:
-    _str_: _A string response to the message taken from the GPT-3 API_
 
-## load_dotenv()
 
-Parse a .env file and then load all the variables found as environment variables.
+## Features
 
-- _dotenv_path_: absolute or relative path to .env file.
-- _stream_: Text stream (such as `io.StringIO`) with .env content, used if
-  `dotenv_path` is `None`.
-- _verbose_: whether to output a warning the .env file is missing. Defaults to
-  `False`.
-- _override_: whether to override the system environment variables with the variables
-  in `.env` file.  Defaults to `False`.
-- _encoding_: encoding to be used to read the file.
+ - warning userid (reason)
+ - timeout userid (time amount 1min 1hr 24hr ... etc) (reason)
+ - ban userid (type rule or reason they were banned) (limited to senior mods and above)
+ - some command to delete all of the users posts in the last hour and so on
+ - check user infraction history
+ - command to send a DM if mods cant reach them because of settings if possible
+ - remove timeout (senior mod above)
 
-If both `dotenv_path` and `stream`, `find_dotenv()` is used to find the .env file.
 
-## on_message()
+## FAQ
 
-Define a bot event that waits for a message in a channel and then responds with a greeting from the openai chatbot API
+#### Who do I talk to about contributing?
 
-Args:
-    Message (_discord.Message_): _A message object sent by a user in the server._
+Marco Lustri, but any moderator/dev can point you in my direction
 
-## on_ready()
+#### How are tasks being handed out?
 
-None
+Through Issues here on the repository. Most will be feature requests so use the task to guide your effort, make a PR, and we'll add it to the bot if it works.
+
+#### Is this thing I have worth including
+
+Probably, run it by me.
+
+
+## Demo
+
+[Link to current bot in action on server]![Bot Demo Pic](https://i.imgur.com/QgA266z.jpg)(https://discord.gg/unstablediffusion)
+
